@@ -1,0 +1,32 @@
+<mat-card>
+  @if(loading) {
+  <mat-spinner></mat-spinner>
+  } @else {
+  <form [formGroup]="form" (submit)="onAddPost()">
+  <mat-form-field>
+    <input matInput type="text" name="title" required formControlName="title">
+    @if (form.get('title')?.invalid) {
+      <mat-error>This field is required - minimum length is 3</mat-error>
+    }
+  </mat-form-field>
+  <div>
+    <button mat-stroked-button type="button" (click)="filepicker.click()">
+      Pick Image
+    </button>
+    <input type="file" #filepicker (change)="PickedImage($event)">
+  </div>
+  <!-- @if(UploadedImage !== '' && UploadedImage && form.get('image')?.valid){ -->
+  <div class="image-preview">
+    <img [src]="UploadedImage" [alt]="form.value.title">
+  </div>
+  <!-- } -->
+  <mat-form-field>
+    <textarea matInput rows="6" name="content" required formControlName="content"></textarea>
+    @if (form.get('content')?.invalid) {
+      <mat-error>This field is required</mat-error>
+    }
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Save Post</button>
+</form>
+  }
+</mat-card>

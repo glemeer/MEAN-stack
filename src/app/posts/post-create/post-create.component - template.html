@@ -1,0 +1,27 @@
+<mat-card>
+  @if(loading) {
+  <mat-spinner></mat-spinner>
+  } @else {
+  <form (submit)="onAddPost(postForm)" #postForm="ngForm">
+  <mat-form-field>
+    <input matInput type="text" name="title" [ngModel]="post?.title" required #title="ngModel">
+    @if (title.invalid) {
+      <mat-error>This field is required</mat-error>
+    }
+  </mat-form-field>
+  <div>
+    <button mat-stroked-button type="button" (click)="filepicker.click()">
+      Pick Image
+    </button>
+    <input type="file" #filepicker>
+  </div>
+  <mat-form-field>
+    <textarea matInput rows="6" name="content" [ngModel]="post?.content" required #content="ngModel"></textarea>
+    @if (content.invalid) {
+      <mat-error>This field is required</mat-error>
+    }
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Save Post</button>
+</form>
+  }
+</mat-card>
